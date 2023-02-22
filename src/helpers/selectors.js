@@ -9,5 +9,6 @@ export function getAppointmentsForDay(state, day) {
   for (let app of appArray) {
         answer.push(state.appointments[app])
   }
+  console.log(answer);
   return answer;
 }
