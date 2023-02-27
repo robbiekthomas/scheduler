@@ -13,7 +13,6 @@ export default function Application(props) {
   const [state, setState] = useState({
     day: "Monday",
     days: [],
-    // you may put the line below, but will have to remove/comment hardcoded appointments variable
     appointments: {},
     interviewers: {},
   });
@@ -33,7 +32,7 @@ export default function Application(props) {
     });
   }, []);
 
-  function bookInterview(id, interview) {
+  function bookInterview(id, interview, callback) {
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview },
@@ -50,8 +49,8 @@ export default function Application(props) {
           ...state,
           appointments,
         });
-        return true;
-      });
+      })
+      .then(callback);
   }
 
   const setDay = (day) => setState({ ...state, day });
