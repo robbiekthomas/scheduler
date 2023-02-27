@@ -26,13 +26,13 @@ const Form = (props) => {
             name="name"
             type="text"
             placeholder="Enter Student Name"
-            value={student}
+            value={student || props.currentStudent }
             onChange={(event) => setStudent(event.target.value)}
           />
         </form>
         <InterviewerList
           interviewers={props.interviewers}
-          value={interviewer}
+          value={interviewer || props.currentInterviewer}
           onChange={setInterviewer}
         />
       </section>
