@@ -32,7 +32,7 @@ export default function Application(props) {
     });
   }, []);
 
-  function bookInterview(id, interview, callback) {
+  function bookInterview(id, interview, callback, errorCallback) {
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview },
@@ -50,11 +50,15 @@ export default function Application(props) {
           appointments,
         });
       })
-      .then(callback);
+      .then(callback)
+      .catch(errorCallback);
   }
 
-  function cancelInterview(id, callback) {
-    axios.delete(`http://localhost:8001/api/appointments/${id}`).then(callback);
+  function cancelInterview(id, callback, errorCallback) {
+    axios
+      .delete(`http://localhost:8001/api/appointments/${id}`)
+      .then(callback)
+      .catch(errorCallback);
   }
 
   const setDay = (day) => setState({ ...state, day });
