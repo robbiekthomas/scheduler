@@ -4,8 +4,8 @@ import InterviewerList from "components/InterviewerList";
 import Button from "components/Button";
 
 const Form = (props) => {
-  const [student, setStudent] = useState(props.student || "");
-  const [interviewer, setInterviewer] = useState(props.interviewer || null);
+  const [student, setStudent] = useState(props.currentStudent || props.student || "");
+  const [interviewer, setInterviewer] = useState(props.currentInterviewer || props.interviewer || null);
 
   const reset = () => {
     setStudent("");
@@ -26,13 +26,13 @@ const Form = (props) => {
             name="name"
             type="text"
             placeholder="Enter Student Name"
-            value={student || props.currentStudent }
+            value={student}
             onChange={(event) => setStudent(event.target.value)}
           />
         </form>
         <InterviewerList
           interviewers={props.interviewers}
-          value={interviewer || props.currentInterviewer}
+          value={interviewer}
           onChange={setInterviewer}
         />
       </section>

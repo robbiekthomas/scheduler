@@ -17,8 +17,8 @@ const SAVE = "SAVE";
 const DELETE = "DELETE";
 const CONFIRM = "CONFIRM";
 const EDIT = "EDIT";
-const ERROR_SAVE = "ERROR_SAVE"
-const ERROR_DELETE = "ERROR_DELETE"
+const ERROR_SAVE = "ERROR_SAVE";
+const ERROR_DELETE = "ERROR_DELETE";
 
 const Appointment = (props) => {
   const { mode, transition, back } = useVisualMode(
@@ -30,12 +30,15 @@ const Appointment = (props) => {
       student: name,
       interviewer,
     };
-    // if (!name || !interviewer) {
-    //   alert("Please input all information");
-    //   return;
-    // }
+    if (!name || !interviewer) {
+      alert("Please input all information");
+      return;
+    }
     transition(SAVE);
-    props.bookInterview(props.id, interview, () => transition(SHOW), (error) => transition(ERROR_SAVE, true));
+    props
+      .bookInterview(props.id, interview)
+      .then(() => transition(SHOW))
+      .catch((error) => transition(ERROR_SAVE, true));
   }
 
   function onDelete() {
@@ -44,7 +47,10 @@ const Appointment = (props) => {
 
   function onDeleteConfirm() {
     transition(DELETE, true);
-    props.cancelInterview(props.id, () => transition(EMPTY), (error) => transition(ERROR_DELETE, true));
+    props
+      .cancelInterview(props.id)
+      .then(() => transition(EMPTY))
+      .catch((error) => transition(ERROR_DELETE, true));
   }
 
   function onEdit() {
@@ -84,8 +90,12 @@ const Appointment = (props) => {
           currentInterviewer={props.interview.interviewer}
         />
       )}
-      {mode === ERROR_DELETE && <Error message={'Could not cancel appointment'} onClose={back}/>}
-      {mode === ERROR_SAVE && <Error message={'Could not save appointment'} onClose={back}/>}
+      {mode === ERROR_DELETE && (
+        <Error message={"Could not cancel appointment"} onClose={back} />
+      )}
+      {mode === ERROR_SAVE && (
+        <Error message={"Could not save appointment"} onClose={back} />
+      )}
     </article>
   );
 };
