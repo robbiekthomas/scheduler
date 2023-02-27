@@ -53,6 +53,10 @@ export default function Application(props) {
       .then(callback);
   }
 
+  function cancelInterview(id, callback) {
+    axios.delete(`http://localhost:8001/api/appointments/${id}`).then(callback);
+  }
+
   const setDay = (day) => setState({ ...state, day });
 
   const dailyInterviewers = getInterviewersForDay(state, state.day);
@@ -65,6 +69,7 @@ export default function Application(props) {
         int={state.interviewers}
         interviewers={dailyInterviewers}
         bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
       />
     );
   });
