@@ -30,10 +30,7 @@ const Appointment = (props) => {
       student: name,
       interviewer,
     };
-    // if (!name || !interviewer) {
-    //   alert("Please input all information");
-    //   return;
-    // }
+  
     transition(SAVE);
     props
       .bookInterview(props.id, interview)
@@ -54,7 +51,7 @@ const Appointment = (props) => {
   }
 
   function onEdit() {
-    transition(EDIT, true);
+    transition(EDIT);
   }
 
   return (
